@@ -2,6 +2,7 @@ describe('Formulario de Registro', () => {
     beforeEach(() => {
         cy.visit('https://ticketazo.com.ar/auth/registerUser')
     })
+
     it.skip('Completa todos los campos y presiona Registrar', () => {
         cy.loginId('Juan','Pérez','3511234567','20268800')
         cy.loginUbicacion('Córdoba','Córdoba')
@@ -10,7 +11,7 @@ describe('Formulario de Registro', () => {
         cy.log('Enviar formulario')
         cy.get('[data-cy="btn-registrarse"]').click().wait(2000)
     })
-
+    //Ejercicio 2
     it.skip('Completa todos los campo,presiona Registrar y test email duplicado', () => {
         cy.loginId('Juan','Pérez','3511234567','21268800')
         cy.loginUbicacion('Córdoba','Córdoba')
@@ -22,7 +23,7 @@ describe('Formulario de Registro', () => {
         cy.get('[data-cy="error-message"]').should('be.visible').and('contain','Ya existe un usuario registrado con ese correo electrónico')
 
     })
-
+    //Ejercicio 3
         it.skip('Completa todos los campo,presiona Registrar y test dni duplicado', () => {
         cy.loginId('Juan','Pérez','3511234567','20268800')
         cy.loginUbicacion('Córdoba','Córdoba')
@@ -34,7 +35,8 @@ describe('Formulario de Registro', () => {
         cy.get('[data-cy="error-message"]').should('be.visible').contains('DNI')
 
     })
-    it('Verifica que despues de un registro exitoso redirija al login', () => {
+    //Ejercicio 4
+    it.skip('Verifica que despues de un registro exitoso redirija al login', () => {
         cy.loginId('Juan','Pérez','3511234567','254268800')
         cy.loginUbicacion('Córdoba','Córdoba')
         cy.loginBirth('15','08','1995')
@@ -43,7 +45,17 @@ describe('Formulario de Registro', () => {
         cy.get('[data-cy="btn-registrarse"]').click().wait(2000)
         cy.location('pathname').should('eq', '/auth/login');
     })
-        
+    
+    //Ejercicio 5
+    it('Verifica mensaje de error de contraseña ', () => {
+        cy.loginId('Juan','Pérez','3511234567','20268800')
+        cy.loginUbicacion('Córdoba','Córdoba')
+        cy.loginBirth('15','08','1995')
+        cy.loginEmailPass('juan.perez90@example.com','....')
+        cy.log('Enviar formulario')
+        cy.get('[data-cy="btn-registrarse"]').click().wait(2000)
+        cy.get('[data-cy="error-message"]').should('be.visible')
+    })
 
 
 })
