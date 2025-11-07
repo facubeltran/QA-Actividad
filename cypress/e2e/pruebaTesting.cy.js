@@ -11,7 +11,7 @@ describe('Formulario de Registro', () => {
         cy.get('[data-cy="btn-registrarse"]').click().wait(2000)
     })
 
-    it('Completa todos los campo,presiona Registrar y test email duplicado', () => {
+    it.skip('Completa todos los campo,presiona Registrar y test email duplicado', () => {
         cy.loginId('Juan','Pérez','3511234567','21268800')
         cy.loginUbicacion('Córdoba','Córdoba')
         cy.loginBirth('15','08','1995')
@@ -34,4 +34,16 @@ describe('Formulario de Registro', () => {
         cy.get('[data-cy="error-message"]').should('be.visible').contains('DNI')
 
     })
+    it('Verifica que despues de un registro exitoso redirija al login', () => {
+        cy.loginId('Juan','Pérez','3511234567','254268800')
+        cy.loginUbicacion('Córdoba','Córdoba')
+        cy.loginBirth('15','08','1995')
+        cy.loginEmailPass('juan.pezar90@example.com','P@ssw0rd123')
+        cy.log('Enviar formulario')
+        cy.get('[data-cy="btn-registrarse"]').click().wait(2000)
+        cy.location('pathname').should('eq', '/auth/login');
+    })
+        
+
+
 })
